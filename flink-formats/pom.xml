@@ -46,6 +46,7 @@ under the License.
 		<module>flink-sequence-file</module>
 		<module>flink-compress</module>
 		<module>flink-csv</module>
+		<module>flink-msgpack</module>
 		<module>flink-orc</module>
 		<module>flink-orc-nohive</module>
 		<module>flink-hadoop-bulk</module>
@@ -85,4 +86,36 @@ under the License.
 		</profile>
 	</profiles>
 
+	<build>
+		<plugins>
+			<!-- skip dependency convergence due to Hadoop dependency -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>dependency-convergence</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
